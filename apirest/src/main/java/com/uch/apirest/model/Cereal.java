@@ -1,14 +1,25 @@
 package com.uch.apirest.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Cereal {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String marca;
     private double precio;
 
-    public Cereal(Long id, String nombre, String marca, double precio) {
-        this.id = id;
+    // Constructor sin parámetros
+    public Cereal() {}
+
+    // Constructor con parámetros
+    public Cereal(String nombre, String marca, double precio) {
         this.nombre = nombre;
         this.marca = marca;
         this.precio = precio;
@@ -47,4 +58,3 @@ public class Cereal {
         this.precio = precio;
     }
 }
-

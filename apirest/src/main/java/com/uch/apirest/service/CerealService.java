@@ -2,37 +2,38 @@ package com.uch.apirest.service;
 
 
 import com.uch.apirest.model.Cereal;
+import com.uch.apirest.repository.CerealRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CerealService {
-    private List<Cereal> cereales = new ArrayList<>();
-
-    public CerealService() {
-        // Agregar algunos cereales de ejemplo
-        cereales.add(new Cereal(1L, "Zucaritas", "Kellogg's", 150.0));
-        cereales.add(new Cereal(2L, "Choco Krispies", "Kellogg's", 180.0));
-        cereales.add(new Cereal(3L, "Froot Loops", "Kellogg's", 170.0));
-        cereales.add(new Cereal(4L, "Granola", "Quaker", 200.0));
-        cereales.add(new Cereal(5L, "Avena", "Quaker", 200.0));
-    }
+    @Autowired
+    private CerealRepository cerealRepository;
 
     public List<Cereal> obtenerTodos() {
-        return cereales;
+        return cerealRepository.findAll();
     }
 
-    public Cereal obtenerPorId(Long id) {
-        return cereales.stream()
-                .filter(cereal -> cereal.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+    public Optional<Cereal> obtenerPorId(Long id) {
+        return cerealRepository.findById(id);
     }
 
-    public void agregarCereal(Cereal cereal) {
-        cereales.add(cereal);
+    public Cereal agregarCereal(Cereal cereal) {
+        return cerealRepository.save(cereal);
+    }
+
+    public Cereal modificarCereal(Cereal cereal) {
+        if (cereal.getId() == null || !cerealRepository.existsById(cereal.getId())) {
+            throw new RuntimeException("Cereal no encontrado");
+        }
+        return cerealRepository.save(cereal);
+    }
+
+    public void eliminarCereal(Long id) {
+        cerealRepository.deleteById(id);
     }
 }
-
