@@ -3,7 +3,6 @@ package com.uch.apirest.controller;
 import com.uch.apirest.model.Cereal;
 import com.uch.apirest.service.CerealService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class CerealController {
 
 
     @PutMapping("{id}")
-    public Cereal modificarCereal(@PathVariable Long id ,@RequestBody Cereal cereal) {
+    public Cereal modificarCereal(@RequestBody Cereal cereal) {
         return cerealService.modificarCereal(cereal);
     }
 }
