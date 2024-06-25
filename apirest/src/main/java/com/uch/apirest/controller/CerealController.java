@@ -15,7 +15,6 @@ public class CerealController {
     private CerealService cerealService;
 
     @GetMapping
-    @ResponseBody
     public List<Cereal> obtenerTodos() {
         return cerealService.obtenerTodos();
     }
@@ -26,7 +25,6 @@ public class CerealController {
     }
 
     @PostMapping
-    @ResponseBody
     public Cereal agregarCereal(@RequestBody Cereal cereal) {
         return cerealService.agregarCereal(cereal);
     }
@@ -36,9 +34,8 @@ public class CerealController {
         cerealService.eliminarCereal(id);
     }
 
-
     @PutMapping("{id}")
-    public Cereal modificarCereal(@RequestBody Cereal cereal) {
-        return cerealService.modificarCereal(cereal);
+    public Cereal modificarCereal(@PathVariable Long id, @RequestBody Cereal cereal) {
+        return cerealService.modificarCereal(id, cereal);
     }
 }

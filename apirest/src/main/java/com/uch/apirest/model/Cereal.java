@@ -25,6 +25,14 @@ public class Cereal {
         this.precio = precio;
     }
 
+    // Constructor con ID
+    public Cereal(Long id, String nombre, String marca, double precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.marca = marca;
+        this.precio = precio;
+    }
+
     // Getters y setters
     public Long getId() {
         return id;

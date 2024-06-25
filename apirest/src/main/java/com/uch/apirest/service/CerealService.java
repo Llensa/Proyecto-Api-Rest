@@ -1,6 +1,5 @@
 package com.uch.apirest.service;
 
-
 import com.uch.apirest.model.Cereal;
 import com.uch.apirest.repository.CerealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,11 @@ public class CerealService {
         return cerealRepository.save(cereal);
     }
 
-    public Cereal modificarCereal(Cereal cereal) {
-        if (cereal.getId() == null || !cerealRepository.existsById(cereal.getId())) {
+    public Cereal modificarCereal(Long id, Cereal cereal) {
+        if (!cerealRepository.existsById(id)) {
             throw new RuntimeException("Cereal no encontrado");
         }
+        cereal.setId(id);  // Asegura que el cereal tenga el ID correcto
         return cerealRepository.save(cereal);
     }
 
