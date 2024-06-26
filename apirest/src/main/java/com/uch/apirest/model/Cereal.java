@@ -1,13 +1,9 @@
 package com.uch.apirest.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Cereal {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,22 +11,18 @@ public class Cereal {
     private String marca;
     private double precio;
 
-    // Constructor sin parámetros
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "nutricion_id", referencedColumnName = "id")
+    private Nutricion nutricion;
+
+    // Constructores, getters y setters
     public Cereal() {}
 
-    // Constructor con parámetros
-    public Cereal(String nombre, String marca, double precio) {
+    public Cereal(String nombre, String marca, double precio, Nutricion nutricion) {
         this.nombre = nombre;
         this.marca = marca;
         this.precio = precio;
-    }
-
-    // Constructor con ID
-    public Cereal(Long id, String nombre, String marca, double precio) {
-        this.id = id;
-        this.nombre = nombre;
-        this.marca = marca;
-        this.precio = precio;
+        this.nutricion = nutricion;
     }
 
     // Getters y setters
@@ -64,5 +56,13 @@ public class Cereal {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public Nutricion getNutricion() {
+        return nutricion;
+    }
+
+    public void setNutricion(Nutricion nutricion) {
+        this.nutricion = nutricion;
     }
 }
