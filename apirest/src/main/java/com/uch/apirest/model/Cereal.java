@@ -1,5 +1,6 @@
 package com.uch.apirest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,14 +16,22 @@ public class Cereal {
     @JoinColumn(name = "nutricion_id", referencedColumnName = "id")
     private Nutricion nutricion;
 
-    // Constructores, getters y setters
+    @JsonIgnore
+    private String informacion;
+
+    // Constructor sin parámetros
     public Cereal() {}
 
-    public Cereal(String nombre, String marca, double precio, Nutricion nutricion) {
+    // Constructor con parámetros
+    public Cereal(Long id, String nombre, String marca, double precio, Nutricion nutricion) {
+        this.id = id;
         this.nombre = nombre;
         this.marca = marca;
         this.precio = precio;
         this.nutricion = nutricion;
+        if (nutricion != null) {
+            nutricion.setCereal(this);
+        }
     }
 
     // Getters y setters
@@ -64,5 +73,17 @@ public class Cereal {
 
     public void setNutricion(Nutricion nutricion) {
         this.nutricion = nutricion;
+        if (nutricion != null) {
+            nutricion.setCereal(this);
+        }
+    }
+
+    // El getter para 'informacion' puede ser opcionalmente omitido
+    public String getInformacion() {
+        return informacion;
+    }
+
+    public void setInformacion(String informacion) {
+        this.informacion = informacion;
     }
 }

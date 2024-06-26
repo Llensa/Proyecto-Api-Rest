@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.uch</groupId>
 	<artifactId>apirest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version> Epica </version>
 	<packaging>war</packaging>
 	<name>apirest</name>
 	<description>prueba apirest</description>

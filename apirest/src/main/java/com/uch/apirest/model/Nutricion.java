@@ -8,23 +8,27 @@ public class Nutricion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int calorias;
-    private double proteinas;
-    private double carbohidratos;
-    private double grasas;
+    private int proteinas;
+    private int carbohidratos;
+    private int grasas;
+    private String informacion;
 
-    @OneToOne(mappedBy = "nutricion")
+    @OneToOne(mappedBy = "nutricion", cascade = CascadeType.ALL)
     private Cereal cereal;
 
-    // Constructores, getters y setters
+    // Constructor sin parámetros
     public Nutricion() {}
 
-    public Nutricion(int calorias, double proteinas, double carbohidratos, double grasas) {
+    // Constructor con parámetros
+    public Nutricion(int calorias, int proteinas, int carbohidratos, int grasas, String informacion) {
         this.calorias = calorias;
         this.proteinas = proteinas;
         this.carbohidratos = carbohidratos;
         this.grasas = grasas;
+        this.informacion = informacion;
     }
 
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -41,28 +45,36 @@ public class Nutricion {
         this.calorias = calorias;
     }
 
-    public double getProteinas() {
+    public int getProteinas() {
         return proteinas;
     }
 
-    public void setProteinas(double proteinas) {
+    public void setProteinas(int proteinas) {
         this.proteinas = proteinas;
     }
 
-    public double getCarbohidratos() {
+    public int getCarbohidratos() {
         return carbohidratos;
     }
 
-    public void setCarbohidratos(double carbohidratos) {
+    public void setCarbohidratos(int carbohidratos) {
         this.carbohidratos = carbohidratos;
     }
 
-    public double getGrasas() {
+    public int getGrasas() {
         return grasas;
     }
 
-    public void setGrasas(double grasas) {
+    public void setGrasas(int grasas) {
         this.grasas = grasas;
+    }
+
+    public String getInformacion() {
+        return informacion;
+    }
+
+    public void setInformacion(String informacion) {
+        this.informacion = informacion;
     }
 
     public Cereal getCereal() {
