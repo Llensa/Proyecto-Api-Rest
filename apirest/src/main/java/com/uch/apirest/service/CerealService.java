@@ -1,64 +1,34 @@
 package com.uch.apirest.service;
 
-import com.uch.apirest.exception.ResourceNotFoundException;
 import com.uch.apirest.model.Cereal;
-import com.uch.apirest.model.Nutricion;
 import com.uch.apirest.repository.CerealRepository;
-import com.uch.apirest.repository.NutricionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 @Service
 public class CerealService {
 
     @Autowired
     private CerealRepository cerealRepository;
 
-    @Autowired
-    private NutricionRepository nutricionRepository;
-
-    public List<Cereal> obtenerTodos() {
+    public List<Cereal> obtenerTodosLosCereales() {
         return cerealRepository.findAll();
     }
 
-    public Optional<Cereal> obtenerPorId(Long id) {
-        return cerealRepository.findById(id);
-    }
-
-    public Cereal agregarCereal(Cereal cereal) {
-        if (cereal.getNutricion() != null) {
-            Nutricion nutricion = cereal.getNutricion();
-            nutricion.setCereal(cereal);  // Establece la relación bidireccional
-            nutricionRepository.save(nutricion);
-        }
+    public Cereal crearCereal(Cereal cereal) {
         return cerealRepository.save(cereal);
     }
 
-    public Cereal modificarCereal(Long id, Cereal cereal) {
-        Cereal existingCereal = cerealRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cereal no encontrado para este id :: " + id));
-
-        existingCereal.setNombre(cereal.getNombre());
-        existingCereal.setMarca(cereal.getMarca());
-        existingCereal.setPrecio(cereal.getPrecio());
-
-        if (cereal.getNutricion() != null) {
-            Nutricion nutricion = cereal.getNutricion();
-            nutricion.setCereal(existingCereal);  // Establece la relación bidireccional
-            existingCereal.setNutricion(nutricion);
-            nutricionRepository.save(nutricion);
-        }
-
-        return cerealRepository.save(existingCereal);
+    public Cereal actualizarCereal(Long id, Cereal detallesCereal) {
+        Cereal cereal = cerealRepository.findById(id).orElseThrow();
+        cereal.setNombre(detallesCereal.getNombre());
+        cereal.setTipo(detallesCereal.getTipo());
+        return cerealRepository.save(cereal);
     }
 
     public void eliminarCereal(Long id) {
-        Cereal existingCereal = cerealRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cereal no encontrado para este id :: " + id));
-        cerealRepository.delete(existingCereal);
+        cerealRepository.deleteById(id);
     }
 }

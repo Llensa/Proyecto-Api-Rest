@@ -1,9 +1,9 @@
 package com.uch.apirest.repository;
 
-import com.uch.apirest.model.Cereal;
+import com.uch.apirest.model.Proveedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CerealRepository extends JpaRepository<Cereal, Long> {
+public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
 }

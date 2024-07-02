@@ -1,31 +1,35 @@
 package com.uch.apirest.model;
 
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Cereal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
-    private String marca;
-    private double precio;
+    private String tipo;
+    private int calorias;
+    private int proteinas;
+    private int carbohidratos;
+    private int grasas;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "nutricion_id", referencedColumnName = "id")
-    private Nutricion nutricion;
+    @ManyToMany
+    @JoinTable(
+            name = "cereal_proveedor",
+            joinColumns = @JoinColumn(name = "cereal_id"),
+            inverseJoinColumns = @JoinColumn(name = "proveedor_id")
+    )
+    private Set<Proveedor> proveedores;
 
-    // Constructores, getters y setters
-    public Cereal() {}
+    @OneToMany(mappedBy = "cereal")
+    private Set<Pedido> pedidos;
 
-    public Cereal(String nombre, String marca, double precio, Nutricion nutricion) {
-        this.nombre = nombre;
-        this.marca = marca;
-        this.precio = precio;
-        this.nutricion = nutricion;
-    }
+    // Getters and Setters
 
-    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -42,27 +46,59 @@ public class Cereal {
         this.nombre = nombre;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public double getPrecio() {
-        return precio;
+    public int getCalorias() {
+        return calorias;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setCalorias(int calorias) {
+        this.calorias = calorias;
     }
 
-    public Nutricion getNutricion() {
-        return nutricion;
+    public int getProteinas() {
+        return proteinas;
     }
 
-    public void setNutricion(Nutricion nutricion) {
-        this.nutricion = nutricion;
+    public void setProteinas(int proteinas) {
+        this.proteinas = proteinas;
+    }
+
+    public int getCarbohidratos() {
+        return carbohidratos;
+    }
+
+    public void setCarbohidratos(int carbohidratos) {
+        this.carbohidratos = carbohidratos;
+    }
+
+    public int getGrasas() {
+        return grasas;
+    }
+
+    public void setGrasas(int grasas) {
+        this.grasas = grasas;
+    }
+
+    public Set<Proveedor> getProveedores() {
+        return proveedores;
+    }
+
+    public void setProveedores(Set<Proveedor> proveedores) {
+        this.proveedores = proveedores;
+    }
+
+    public Set<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(Set<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }
