@@ -13,10 +13,6 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public Pedido crearPedido(Pedido pedido) {
-        return pedidoRepository.save(pedido);
-    }
-
     public List<Pedido> obtenerTodosLosPedidos() {
         return pedidoRepository.findAll();
     }
@@ -26,10 +22,10 @@ public class PedidoService {
     }
 
     public Pedido actualizarPedido(Long id, Pedido pedido) {
-        Pedido pedidoExistente = obtenerPedidoPorId(id);
+        Pedido pedidoExistente = pedidoRepository.findById(id).orElse(null);
         if (pedidoExistente != null) {
-            pedidoExistente.setNombreCliente(pedido.getNombreCliente());
             pedidoExistente.setCantidad(pedido.getCantidad());
+            pedidoExistente.setNombreCliente(pedido.getNombreCliente());
             pedidoExistente.setCereal(pedido.getCereal());
             return pedidoRepository.save(pedidoExistente);
         }
@@ -38,5 +34,9 @@ public class PedidoService {
 
     public void eliminarPedido(Long id) {
         pedidoRepository.deleteById(id);
+    }
+
+    public Pedido crearPedido(Pedido pedido) {
+        return pedidoRepository.save(pedido);
     }
 }

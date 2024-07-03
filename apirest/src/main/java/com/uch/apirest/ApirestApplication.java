@@ -3,7 +3,7 @@ package com.uch.apirest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.uch.apirest")
 public class ApirestApplication {
 
 	public static void main(String[] args) {

@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Entity
-@Data
+
 public class Proveedor {
 
     @Id
@@ -17,6 +17,7 @@ public class Proveedor {
 
     @ManyToMany(mappedBy = "proveedores")
     private Set<Cereal> cereales;
+
     // Getters y Setters
     public Long getId() {
         return id;
@@ -40,13 +41,5 @@ public class Proveedor {
 
     public void setPais(String pais) {
         this.pais = pais;
-    }
-
-    public Set<Cereal> getCereales() {
-        return cereales;
-    }
-
-    public void setCereales(Set<Cereal> cereales) {
-        this.cereales = cereales;
     }
 }

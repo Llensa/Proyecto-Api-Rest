@@ -12,6 +12,7 @@ public class Cereal {
 
     private String nombre;
     private String tipo;
+    private String informacion;
     private int calorias;
     private int proteinas;
     private int carbohidratos;
@@ -100,5 +101,13 @@ public class Cereal {
 
     public void setPedidos(Set<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public String getInformacion() {
+        return informacion;
+    }
+
+    public void setInformacion(String informacion) {
+        this.informacion = informacion;
     }
 }
