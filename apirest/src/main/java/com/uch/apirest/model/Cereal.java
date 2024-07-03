@@ -1,5 +1,6 @@
 package com.uch.apirest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class Cereal {
             inverseJoinColumns = @JoinColumn(name = "proveedor_id")
     )
     private Set<Proveedor> proveedores;
-
+    @JsonBackReference
     @OneToMany(mappedBy = "cereal")
     private Set<Pedido> pedidos;
 
